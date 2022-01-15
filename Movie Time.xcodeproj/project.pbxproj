@@ -55,6 +55,30 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		DE94BB6327933814006F03B4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DE94BB6427933835006F03B4 /* Resourses */ = {
+			isa = PBXGroup;
+			children = (
+				DEAE07D227615483004F44C4 /* AppDelegate.swift */,
+				DEAE07D427615483004F44C4 /* SceneDelegate.swift */,
+				DEAE07DD27615488004F44C4 /* LaunchScreen.storyboard */,
+			);
+			path = Resourses;
+			sourceTree = "<group>";
+		};
+		DE94BB6527933876006F03B4 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		DEAE07C627615483004F44C4 = {
 			isa = PBXGroup;
 			children = (
@@ -74,11 +98,11 @@
 		DEAE07D127615483004F44C4 /* Movie Time */ = {
 			isa = PBXGroup;
 			children = (
-				DEAE07D227615483004F44C4 /* AppDelegate.swift */,
-				DEAE07D427615483004F44C4 /* SceneDelegate.swift */,
+				DE94BB6527933876006F03B4 /* ViewModels */,
+				DE94BB6427933835006F03B4 /* Resourses */,
+				DE94BB6327933814006F03B4 /* Views */,
 				DEAE07EA27615D95004F44C4 /* Controllers */,
 				DEAE07DB27615488004F44C4 /* Assets.xcassets */,
-				DEAE07DD27615488004F44C4 /* LaunchScreen.storyboard */,
 				DEAE07E027615488004F44C4 /* Info.plist */,
 			);
 			path = "Movie Time";
