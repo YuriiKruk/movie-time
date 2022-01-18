@@ -78,6 +78,20 @@ extension NewMoviePosterTableViewCell: UICollectionViewDelegate, UICollectionVie
         guard let cell = collectionView.cellForItem(at: indexPath) as? MoviePosterCollectionViewCell else {
             return
         }
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseIn) {
+            cell.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        } completion: { _ in
+            UIView.animate(
+                withDuration: 0.3,
+                delay: 0,
+                usingSpringWithDamping: 1,
+                initialSpringVelocity: 2,
+                options: .curveEaseOut
+            ) {
+                cell.transform = .identity
+            }
+        completion: { _ in }
+        }
         
         delegate?.didTapPoster(cellView: self, model: cell.model!)
     }
