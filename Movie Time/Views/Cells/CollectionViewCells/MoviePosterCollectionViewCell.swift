@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MoviePosterCollectionViewCell: UICollectionViewCell {
     
@@ -34,9 +35,11 @@ class MoviePosterCollectionViewCell: UICollectionViewCell {
     // MARK: - Configure Cell
     public func configure(model: Movie) {
         self.model = model
-        self.nameLabel.text = model.name
-        self.ratingLabel.text = "★ \(model.rating)%"
-        self.posterImage.image = model.poster
+        self.nameLabel.text = model.title
+        self.ratingLabel.text = "★ \(model.rating)"
+        
+        let imageURL = URL(string: Constants.baseImageURL + model.posterPath)
+        self.posterImage.sd_setImage(with: imageURL, placeholderImage: UIImage(systemName: Constants.imagePlaceholder), completed: nil)
         
         posterImage.layer.cornerRadius = 20
     }
