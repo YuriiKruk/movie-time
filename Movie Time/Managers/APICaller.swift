@@ -5,20 +5,16 @@
 //  Created by Yury Kruk on 19.01.2022.
 //
 
-struct Constants {
-    static let baseAPIURL = "https://api.themoviedb.org/3"
-    static let apiKey = "?api_key=c5115d2fd4b5c7908af39275bad3df28"
-    static let baseImageURL = "https://image.tmdb.org/t/p/w500"
-}
-
 import Foundation
 
 final class APICaller {
     
+    /// Singleton
     static let shared = APICaller()
     
     private init() {}
     
+    // MARK: - Constants
     enum APIError: Error {
         case failedToGetData
     }
@@ -40,6 +36,7 @@ final class APICaller {
         case week = "/week"
     }
     
+    // MARK: - Request
     private func createRequest(with url: URL?, type: HTTPMethod, completion: @escaping (URLRequest) -> Void) {
         guard let apiURL = url else {
             return
@@ -51,7 +48,8 @@ final class APICaller {
     }
     
     // MARK: - Trending
-    func getTrendingMovie(mediaType: MediaType, timeWindow: TimeWindow, completion: @escaping ((Result<Trending, Error>) -> Void)) {
+    /// Request to get Trending Movies
+    func getTrendingMovies(mediaType: MediaType, timeWindow: TimeWindow, completion: @escaping ((Result<Trending, Error>) -> Void)) {
         createRequest(with: URL(string: Constants.baseAPIURL + "/trending" + mediaType.rawValue + timeWindow.rawValue + Constants.apiKey),
                       type: .GET) { request in
             let task = URLSession.shared.dataTask(with: request) { data, _, error in
