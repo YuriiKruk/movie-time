@@ -26,25 +26,50 @@ class TrendingViewController: UIViewController {
         }
     }
     
-    // MARK: - Mock Model
+    // MARK: - Model
     private var model = [TrendingViewModel]()
-    func setupMockModel() {
-        let movies = [
-            Movie(poster: UIImage(named: "movie1")!, name: "Euphoria", description: "", releaseDate: "2022", duration: 45, rating: 81),
-            Movie(poster: UIImage(named: "movie3")!, name: "Spiderman: No way home", description: "", releaseDate: "2022", duration: 145, rating: 87),
-            Movie(poster: UIImage(named: "movie2")!, name: "Boba Fet", description: "", releaseDate: "2022", duration: 41, rating: 78),
-            Movie(poster: UIImage(named: "movie4")!, name: "Eternals", description: "", releaseDate: "2021", duration: 128, rating: 67)
-        ]
-        model.append(TrendingViewModel(section: "New Releases", movie: movies.shuffled()))
-        model.append(TrendingViewModel(section: "Popular now", movie: movies.shuffled()))
-        model.append(TrendingViewModel(section: "Coming Soon", movie: movies.shuffled()))
-    }
-    
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupMockModel()
+        
+        fetchData()
+    }
+    
+    // MARK: - Fetch Data
+    private func fetchData() {
+        let group = DispatchGroup()
+        
+        var trending: Trending?
+        
+        // MARK: Get Trending Movies
+        group.enter()
+        APICaller.shared.getTrendingMovies(mediaType: .movie, timeWindow: .day) { result in
+            defer {
+                group.leave()
+            }
+            switch result {
+            case .success(let data):
+                trending = data
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        // MARK: Configure model
+        group.notify(queue: .main) {
+            guard let trending = trending else {
+                return
+            }
+            
+            self.configureModel(trending: trending.results)
+        }
+    }
+    
+    private func configureModel(trending: [Movie]) {
+        model.append(TrendingViewModel(section: "Now Trending", movie: trending))
+        
+        tableView.reloadData()
     }
 }
 
@@ -88,7 +113,7 @@ extension TrendingViewController: NewMoviePosterTableViewCellDelegate {
         let vc = UIViewController()
         vc.navigationItem.largeTitleDisplayMode = .always
         vc.view.backgroundColor = .systemGray
-        vc.title = model.name
+        vc.title = model.title
         let navVC = UINavigationController(rootViewController: vc)
         navVC.modalPresentationStyle = .formSheet
         present(navVC, animated: true, completion: nil)
