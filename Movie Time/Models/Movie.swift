@@ -6,13 +6,26 @@
 //
 
 import Foundation
-import UIKit
 
-struct Movie {
-    let poster: UIImage
-    let name: String
-    let description: String
+// MARK: - Movie
+struct Movie: Codable {
+    let adult: Bool?
+    let id: Int
+    let overview: String
+    var posterPath: String
     let releaseDate: String
-    let duration: Int
+    let title: String?
     let rating: Double
+    let voteCount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case adult
+        case id
+        case overview
+        case posterPath = "poster_path"
+        case releaseDate = "release_date"
+        case title
+        case rating = "vote_average"
+        case voteCount = "vote_count"
+    }
 }
