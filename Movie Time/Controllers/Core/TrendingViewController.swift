@@ -40,7 +40,8 @@ class TrendingViewController: UIViewController {
     private func fetchData() {
         let group = DispatchGroup()
         
-        var trending: Trending?
+        var trending: MediaObject?
+        var nowPlaying: MediaObject?
         
         // MARK: Get Trending Movies
         group.enter()
@@ -56,18 +57,36 @@ class TrendingViewController: UIViewController {
             }
         }
         
+        // MARK: Get Now Playing Movies
+        group.enter()
+        APICaller.shared.getNowPlayingMovies { result in
+            defer {
+                group.leave()
+            }
+            switch result {
+            case .success(let data):
+                nowPlaying = data
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
         // MARK: Configure model
         group.notify(queue: .main) {
-            guard let trending = trending else {
+            guard let trending = trending, let nowPlaying = nowPlaying else {
                 return
             }
             
-            self.configureModel(trending: trending.results)
+            self.configureModel(trending: trending.results, nowPlaying: nowPlaying.results)
         }
     }
     
-    private func configureModel(trending: [Movie]) {
+    private func configureModel(trending: [Media], nowPlaying: [Media]) {
+        // MARK: Create Now Trending Section
         model.append(TrendingViewModel(section: "Now Trending", movie: trending))
+        
+        // MARK: Create Now Playing Section
+        model.append(TrendingViewModel(section: "Now Playing", movie: nowPlaying))
         
         tableView.reloadData()
     }
@@ -109,7 +128,7 @@ extension TrendingViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - Set New Movie Poster Cell Delegate
 extension TrendingViewController: NewMoviePosterTableViewCellDelegate {
-    func didTapPoster(cellView: NewMoviePosterTableViewCell, model: Movie) {
+    func didTapPoster(cellView: NewMoviePosterTableViewCell, model: Media) {
         let vc = UIViewController()
         vc.navigationItem.largeTitleDisplayMode = .always
         vc.view.backgroundColor = .systemGray
