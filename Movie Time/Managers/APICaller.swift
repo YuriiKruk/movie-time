@@ -94,8 +94,8 @@ final class APICaller {
     
     /// Request to get the most newly created movie.
     /// - This is a live response and will continuously change.
-    func getLatestMovie(completion: @escaping ((Result<Media, Error>) -> Void)) {
-        createRequest(with: URL(string: Constants.baseAPIURL + "/movie/latest" + Constants.apiKey), type: .GET) { request in
+    func getTopRatedMovies(completion: @escaping ((Result<MediaObject, Error>) -> Void)) {
+        createRequest(with: URL(string: Constants.baseAPIURL + "/movie/top_rated" + Constants.apiKey), type: .GET) { request in
             let task = URLSession.shared.dataTask(with: request) { data, _, error in
                 guard let data = data, error == nil else {
                     completion(.failure(APIError.failedToGetData))
@@ -103,7 +103,7 @@ final class APICaller {
                 }
                 
                 do {
-                    let result = try JSONDecoder().decode(Media.self, from: data)
+                    let result = try JSONDecoder().decode(MediaObject.self, from: data)
                     completion(.success(result))
                 }
                 catch {

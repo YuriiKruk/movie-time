@@ -17,12 +17,14 @@ class TrendingViewController: UIViewController {
             tableView.dataSource = self
             tableView.separatorStyle = .none
             tableView.showsVerticalScrollIndicator = false
+            tableView.allowsSelection = false
             
             // MARK: Registration Note Table View Cell
             tableView.register(NewMoviePosterTableViewCell.nib(),
                                forCellReuseIdentifier: NewMoviePosterTableViewCell.identifier)
             tableView.register(TrendingTableViewHeader.self,
                                forHeaderFooterViewReuseIdentifier: TrendingTableViewHeader.identifier)
+            tableView.register(MovieSectionTableViewCell.nib(), forCellReuseIdentifier: MovieSectionTableViewCell.identifier)
         }
     }
     
@@ -41,6 +43,7 @@ class TrendingViewController: UIViewController {
         let group = DispatchGroup()
         
         var trending: MediaObject?
+        var recommendedMovie: MediaObject?
         var nowPlaying: MediaObject?
         
         // MARK: Get Trending Movies
@@ -52,6 +55,20 @@ class TrendingViewController: UIViewController {
             switch result {
             case .success(let data):
                 trending = data
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        // MARK: Get Latest Movie
+        group.enter()
+        APICaller.shared.getTopRatedMovies { result in
+            defer {
+                group.leave()
+            }
+            switch result {
+            case .success(let data):
+                recommendedMovie = data
             case .failure(let error):
                 print(error)
             }
@@ -73,17 +90,20 @@ class TrendingViewController: UIViewController {
         
         // MARK: Configure model
         group.notify(queue: .main) {
-            guard let trending = trending, let nowPlaying = nowPlaying else {
+            guard let trending = trending, let recommended = recommendedMovie, let nowPlaying = nowPlaying else {
                 return
             }
             
-            self.configureModel(trending: trending.results, nowPlaying: nowPlaying.results)
+            self.configureModel(trending: trending.results, recommended: recommended.results, nowPlaying: nowPlaying.results)
         }
     }
     
-    private func configureModel(trending: [Media], nowPlaying: [Media]) {
+    private func configureModel(trending: [Media], recommended: [Media], nowPlaying: [Media]) {
         // MARK: Create Now Trending Section
         model.append(TrendingViewModel(section: "Now Trending", movie: trending))
+        
+        // MARK: Create Latest Section
+        model.append(TrendingViewModel(section: "Recommended", movie: recommended))
         
         // MARK: Create Now Playing Section
         model.append(TrendingViewModel(section: "Now Playing", movie: nowPlaying))
@@ -103,6 +123,11 @@ extension TrendingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: MovieSectionTableViewCell.identifier) as! MovieSectionTableViewCell
+            cell.configurate(model: model[indexPath.section].movie.randomElement()!)
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: NewMoviePosterTableViewCell.identifier, for: indexPath) as! NewMoviePosterTableViewCell
         cell.configure(model: model[indexPath.section].movie)
         cell.delegate = self
@@ -110,6 +135,9 @@ extension TrendingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 1 {
+            return view.frame.height / 4
+        }
         return view.frame.height / 3
     }
     
