@@ -48,7 +48,7 @@ final class APICaller {
     }
     
     // MARK: - Trending
-    /// Request to get Trending Movies
+    /// Request to get the daily or weekly trending Movies or TV Shows.
     func getTrendingMovies(mediaType: MediaType, timeWindow: TimeWindow, completion: @escaping ((Result<MediaObject, Error>) -> Void)) {
         createRequest(with: URL(string: Constants.baseAPIURL + "/trending" + mediaType.rawValue + timeWindow.rawValue + Constants.apiKey),
                       type: .GET) { request in
@@ -71,7 +71,7 @@ final class APICaller {
     }
     
     // MARK: - Movie
-    /// Request to get now playing movies
+    /// Request to get a list of movies in theatres.
     func getNowPlayingMovies(completion: @escaping ((Result<MediaObject, Error>) -> Void)) {
         createRequest(with: URL(string: Constants.baseAPIURL + "/movie/now_playing" + Constants.apiKey), type: .GET) { request in
             let task = URLSession.shared.dataTask(with: request) { data, _, error in
@@ -82,6 +82,28 @@ final class APICaller {
                 
                 do {
                     let result = try JSONDecoder().decode(MediaObject.self, from: data)
+                    completion(.success(result))
+                }
+                catch {
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    /// Request to get the most newly created movie.
+    /// - This is a live response and will continuously change.
+    func getLatestMovie(completion: @escaping ((Result<Media, Error>) -> Void)) {
+        createRequest(with: URL(string: Constants.baseAPIURL + "/movie/latest" + Constants.apiKey), type: .GET) { request in
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do {
+                    let result = try JSONDecoder().decode(Media.self, from: data)
                     completion(.success(result))
                 }
                 catch {
