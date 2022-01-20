@@ -56,7 +56,7 @@ class NewMoviePosterTableViewCell: UITableViewCell {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.collectionView?.isPagingEnabled = true
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: Theme.padding, bottom: 0, right: Theme.padding)
         collectionView.collectionViewLayout = layout
     }
 }

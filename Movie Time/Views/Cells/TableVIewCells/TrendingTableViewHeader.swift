@@ -28,7 +28,7 @@ class TrendingTableViewHeader: UITableViewHeaderFooterView {
     // MARK: - Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
-        title.frame = CGRect(x: 10, y: 0, width: contentView.bounds.width - 10, height: contentView.bounds.height)
+        title.frame = CGRect(x: Theme.padding, y: 0, width: contentView.bounds.width - Theme.padding, height: contentView.bounds.height)
     }
     
     // MARK: - Header Life Cycle
