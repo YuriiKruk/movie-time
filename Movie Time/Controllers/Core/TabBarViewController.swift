@@ -11,11 +11,18 @@ class TabBarViewController: UITabBarController {
     
     private let layerGradient = CAGradientLayer()
     
+    // MARK: - TabBar Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupTabBarLayer()
         setupVCs()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        additionalSafeAreaInsets.bottom = -10
     }
     
     // MARK: - Setup Tab Bar Layer
@@ -70,13 +77,3 @@ class TabBarViewController: UITabBarController {
         ]
     }
 }
-
-// MARK: - Extension UITabBar
-//extension UITabBar {
-//    open override func sizeThatFits(_ size: CGSize) -> CGSize {
-//        var sizeThatFits = super.sizeThatFits(size)
-//        sizeThatFits.height = 90
-//
-//        return sizeThatFits
-//    }
-//}
