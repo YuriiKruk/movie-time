@@ -49,7 +49,7 @@ final class APICaller {
     
     // MARK: - Trending
     /// Request to get Trending Movies
-    func getTrendingMovies(mediaType: MediaType, timeWindow: TimeWindow, completion: @escaping ((Result<Trending, Error>) -> Void)) {
+    func getTrendingMovies(mediaType: MediaType, timeWindow: TimeWindow, completion: @escaping ((Result<MediaObject, Error>) -> Void)) {
         createRequest(with: URL(string: Constants.baseAPIURL + "/trending" + mediaType.rawValue + timeWindow.rawValue + Constants.apiKey),
                       type: .GET) { request in
             let task = URLSession.shared.dataTask(with: request) { data, _, error in
@@ -59,7 +59,29 @@ final class APICaller {
                 }
                 
                 do {
-                    let result = try JSONDecoder().decode(Trending.self, from: data)
+                    let result = try JSONDecoder().decode(MediaObject.self, from: data)
+                    completion(.success(result))
+                }
+                catch {
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    // MARK: - Movie
+    /// Request to get now playing movies
+    func getNowPlayingMovies(completion: @escaping ((Result<MediaObject, Error>) -> Void)) {
+        createRequest(with: URL(string: Constants.baseAPIURL + "/movie/now_playing" + Constants.apiKey), type: .GET) { request in
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do {
+                    let result = try JSONDecoder().decode(MediaObject.self, from: data)
                     completion(.success(result))
                 }
                 catch {
