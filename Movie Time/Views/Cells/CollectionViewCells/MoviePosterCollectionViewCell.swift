@@ -34,20 +34,26 @@ class MoviePosterCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Configure Cell
     public func configure(model: Media) {
+        if let posterPath = model.posterPath {
+            let imageURL = URL(string: Constants.baseImageURL + posterPath)
+            posterImage.sd_setImage(with: imageURL, placeholderImage: UIImage(systemName: Constants.imagePlaceholder), completed: nil)
+        } else {
+            posterImage.image = UIImage(systemName: Constants.imagePlaceholder)
+        }
+        
         self.model = model
         self.nameLabel.text = model.title
         self.ratingLabel.text = "★ \(model.rating)"
         
-        let imageURL = URL(string: Constants.baseImageURL + model.posterPath)
-        self.posterImage.sd_setImage(with: imageURL, placeholderImage: UIImage(systemName: Constants.imagePlaceholder), completed: nil)
-        
-        posterImage.layer.cornerRadius = 20
     }
     
     // MARK: - Cell Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLayerGradient()
+        
+        posterImage.layer.cornerRadius = 20
+        posterImage.layer.masksToBounds = true
     }
     
     override func prepareForReuse() {
