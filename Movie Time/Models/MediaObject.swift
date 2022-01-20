@@ -10,7 +10,6 @@ import Foundation
 // MARK: - MediaObject
 struct MediaObject: Codable {
     let results: [Media]
-    let totalResults: Int
 
     enum CodingKeys: String, CodingKey {
         case results

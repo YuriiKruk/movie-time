@@ -9,12 +9,12 @@ import Foundation
 
 // MARK: - Movie
 struct Media: Codable {
-    let adult: Bool?
+    let adult: Bool
     let id: Int
     let overview: String
-    var posterPath: String
+    var posterPath: String?
     let releaseDate: String
-    let title: String?
+    let title: String
     let rating: Double
     let voteCount: Int
 
