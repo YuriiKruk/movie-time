@@ -30,10 +30,10 @@ class MoviePosterCollectionViewCell: UICollectionViewCell {
     @IBOutlet private var posterImage: UIImageView!
     
     // MARK: Model
-    var model: Movie?
+    var model: Media?
     
     // MARK: - Configure Cell
-    public func configure(model: Movie) {
+    public func configure(model: Media) {
         self.model = model
         self.nameLabel.text = model.title
         self.ratingLabel.text = "★ \(model.rating)"

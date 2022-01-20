@@ -1,5 +1,5 @@
 //
-//  Trending.swift
+//  MediaObject.swift
 //  Movie Time
 //
 //  Created by Yury Kruk on 19.01.2022.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-// MARK: - Trending
-struct Trending: Codable {
-    let results: [Movie]
+// MARK: - MediaObject
+struct MediaObject: Codable {
+    let results: [Media]
     let totalResults: Int
 
     enum CodingKeys: String, CodingKey {

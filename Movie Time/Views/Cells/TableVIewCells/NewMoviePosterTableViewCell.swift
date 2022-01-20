@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - NewMoviePosterTableViewCellDelegate
 protocol NewMoviePosterTableViewCellDelegate: AnyObject {
-    func didTapPoster(cellView: NewMoviePosterTableViewCell, model: Movie)
+    func didTapPoster(cellView: NewMoviePosterTableViewCell, model: Media)
 }
 
 class NewMoviePosterTableViewCell: UITableViewCell {
@@ -31,10 +31,10 @@ class NewMoviePosterTableViewCell: UITableViewCell {
     lazy private var cellSize = CGSize(width: contentView.frame.height * 0.6, height: contentView.frame.height)
     
     // MARK: Model
-    private var model = [Movie]()
+    private var model = [Media]()
     
     // MARK: - Configure Cell
-    public func configure(model: [Movie]) {
+    public func configure(model: [Media]) {
         self.model = model
     }
     
