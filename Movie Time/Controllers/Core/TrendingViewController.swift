@@ -45,6 +45,7 @@ class TrendingViewController: UIViewController {
         
         var trendingMovies: MovieObject?
         var recommendedMovie: MovieObject?
+        var upcomingMovies: MovieObject?
         var popularMovies: MovieObject?
         
         // MARK: Get Trending Movies
@@ -61,7 +62,7 @@ class TrendingViewController: UIViewController {
             }
         }
         
-        // MARK: Get Latest Movie
+        // MARK: Get Recommended Movie
         group.enter()
         APICaller.shared.getTopRatedMovies { result in
             defer {
@@ -70,6 +71,20 @@ class TrendingViewController: UIViewController {
             switch result {
             case .success(let data):
                 recommendedMovie = data
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        // MARK: Get Upcoming Movies
+        group.enter()
+        APICaller.shared.getUpcomingMovies { result in
+            defer {
+                group.leave()
+            }
+            switch result {
+            case .success(let data):
+                upcomingMovies = data
             case .failure(let error):
                 print(error)
             }
@@ -91,20 +106,33 @@ class TrendingViewController: UIViewController {
         
         // MARK: Configure model
         group.notify(queue: .main) {
-            guard let trending = trendingMovies, let recommended = recommendedMovie, let nowPlaying = popularMovies else {
+            guard
+                let trending = trendingMovies,
+                let recommended = recommendedMovie,
+                let nowPlaying = popularMovies,
+                let upcoming = upcomingMovies
+            else {
                 return
             }
             
-            self.configureModel(trending: trending.results, recommended: recommended.results, nowPlaying: nowPlaying.results)
+            self.configureModel(
+                trending: trending.results,
+                recommended: recommended.results,
+                upcoming: upcoming.results,
+                nowPlaying: nowPlaying.results
+            )
         }
     }
     
-    private func configureModel(trending: [Movie], recommended: [Movie], nowPlaying: [Movie]) {
+    private func configureModel(trending: [Movie], recommended: [Movie], upcoming: [Movie], nowPlaying: [Movie]) {
         // MARK: Create Now Trending Section
         model.append(TrendingViewModel(section: "Now Trending", movie: trending))
         
         // MARK: Create Latest Section
         model.append(TrendingViewModel(section: "Recommended", movie: recommended))
+        
+        // MARK: Create Upcomming Section
+        model.append(TrendingViewModel(section: "Upcoming", movie: upcoming))
         
         // MARK: Create Now Playing Section
         model.append(TrendingViewModel(section: "Popular", movie: nowPlaying))
