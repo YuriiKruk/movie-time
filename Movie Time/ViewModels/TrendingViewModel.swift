@@ -9,5 +9,5 @@ import Foundation
 
 struct TrendingViewModel {
     let section: String
-    let movie: [Media]
+    let movie: [Movie]
 }

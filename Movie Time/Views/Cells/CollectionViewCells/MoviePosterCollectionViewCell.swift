@@ -16,7 +16,7 @@ class MoviePosterCollectionViewCell: UICollectionViewCell {
         return UINib(nibName: "MoviePosterCollectionViewCell", bundle: nil)
     }
     
-    // MARK: - Properties
+    // MARK: - IBOutlets
     @IBOutlet private var nameLabel: UILabel! {
         didSet {
             nameLabel.textColor = .white
@@ -30,10 +30,10 @@ class MoviePosterCollectionViewCell: UICollectionViewCell {
     @IBOutlet private var posterImage: UIImageView!
     
     // MARK: Model
-    var model: Media?
+    var model: Movie?
     
     // MARK: - Configure Cell
-    public func configure(model: Media) {
+    public func configure(model: Movie) {
         if let posterPath = model.posterPath {
             let imageURL = URL(string: Constants.baseImageURL + posterPath)
             posterImage.sd_setImage(with: imageURL, placeholderImage: UIImage(systemName: Constants.imagePlaceholder), completed: nil)

@@ -14,7 +14,3 @@ enum Constants {
     static let baseImageURL = "https://image.tmdb.org/t/p/w500"
     static let imagePlaceholder = "clock.arrow.2.circlepath"
 }
-
-enum Theme {
-    static let padding: CGFloat = 10
-}
