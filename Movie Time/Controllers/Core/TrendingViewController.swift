@@ -43,9 +43,9 @@ class TrendingViewController: UIViewController {
     private func fetchData() {
         let group = DispatchGroup()
         
-        var trending: MovieObject?
+        var trendingMovies: MovieObject?
         var recommendedMovie: MovieObject?
-        var nowPlaying: MovieObject?
+        var popularMovies: MovieObject?
         
         // MARK: Get Trending Movies
         group.enter()
@@ -55,7 +55,7 @@ class TrendingViewController: UIViewController {
             }
             switch result {
             case .success(let data):
-                trending = data
+                trendingMovies = data
             case .failure(let error):
                 print(error)
             }
@@ -77,13 +77,13 @@ class TrendingViewController: UIViewController {
         
         // MARK: Get Now Playing Movies
         group.enter()
-        APICaller.shared.getNowPlayingMovies { result in
+        APICaller.shared.getPopularMovies { result in
             defer {
                 group.leave()
             }
             switch result {
             case .success(let data):
-                nowPlaying = data
+                popularMovies = data
             case .failure(let error):
                 print(error)
             }
@@ -91,7 +91,7 @@ class TrendingViewController: UIViewController {
         
         // MARK: Configure model
         group.notify(queue: .main) {
-            guard let trending = trending, let recommended = recommendedMovie, let nowPlaying = nowPlaying else {
+            guard let trending = trendingMovies, let recommended = recommendedMovie, let nowPlaying = popularMovies else {
                 return
             }
             
@@ -107,7 +107,7 @@ class TrendingViewController: UIViewController {
         model.append(TrendingViewModel(section: "Recommended", movie: recommended))
         
         // MARK: Create Now Playing Section
-        model.append(TrendingViewModel(section: "Now Playing", movie: nowPlaying))
+        model.append(TrendingViewModel(section: "Popular", movie: nowPlaying))
         
         tableView.reloadData()
     }
@@ -168,12 +168,12 @@ extension TrendingViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - Set New Movie Poster Cell Delegate
 extension TrendingViewController: NewMoviePosterTableViewCellDelegate {
     func didTapPoster(cellView: NewMoviePosterTableViewCell, model: Movie) {
-        presentNavVC(vc: MediaViewController(media: model), title: model.title)
+        presentNavVC(vc: MovieViewController(media: model), title: model.title)
     }
 }
 
 extension TrendingViewController: MovieSectionTableViewCellDelegate {
     func didTapSectionCell(model: Movie) {
-        presentNavVC(vc: MediaViewController(media: model), title: model.title)
+        presentNavVC(vc: MovieViewController(media: model), title: model.title)
     }
 }
