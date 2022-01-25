@@ -7,19 +7,19 @@
 
 import UIKit
 
-class MediaViewController: UIViewController {
+class MovieViewController: UIViewController {
     
     // MARK: - IBOutlets
     @IBOutlet private var collectionView: UICollectionView!
     
     // MARK: - Model
     private let media: Movie?
-    private let model = [MediaViewModel]()
+    private let model = [MovieViewModel]()
     
     // MARK: - Initializer
     init(media: Movie) {
         self.media = media
-        super.init(nibName: "MediaViewController", bundle: nil)
+        super.init(nibName: "MovieViewController", bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -40,7 +40,7 @@ class MediaViewController: UIViewController {
 
 }
 
-extension MediaViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MovieViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 0
     }
