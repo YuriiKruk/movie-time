@@ -7,34 +7,33 @@
 
 import UIKit
 
-class TrendingTableViewHeader: UITableViewHeaderFooterView {
-    // MARK: - Static Identifiers
-    static let identifier = "TrendingTableViewHeader"
+class TrendingTableViewHeader: UITableViewHeaderFooterView, NibSetapable {
     
     // MARK: - Properties
-    let title: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 22, weight: .light)
         label.textColor = .secondaryLabel
         label.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(label)
+        label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Theme.padding).isActive = true
+        label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Theme.padding).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return label
     }()
     
     // MARK: - Configure Header
     public func configure(title: String) {
-        self.title.text = title
+        titleLabel.text = title
     }
     
-    // MARK: - Layout Subviews
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        title.frame = CGRect(x: Theme.padding, y: 0, width: contentView.bounds.width - Theme.padding, height: contentView.bounds.height)
-    }
-    
-    // MARK: - Header Life Cycle
+    // MARK: - Init
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        addSubview(title)
+    }
+    
+    deinit {
+        print("❌❌❌ TrendingTableViewHeader deinited ")
     }
     
     required init?(coder: NSCoder) {
@@ -43,6 +42,6 @@ class TrendingTableViewHeader: UITableViewHeaderFooterView {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.title.text = nil
+        self.titleLabel.text = nil
     }
 }
