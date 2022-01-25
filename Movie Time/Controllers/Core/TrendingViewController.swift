@@ -9,42 +9,43 @@ import UIKit
 
 class TrendingViewController: UIViewController {
 
-    // MARK: - Properties
-    @IBOutlet var tableView: UITableView! {
-        didSet {
-            // MARK: Configure Table View
-            tableView.delegate = self
-            tableView.dataSource = self
-            tableView.separatorStyle = .none
-            tableView.showsVerticalScrollIndicator = false
-            tableView.allowsSelection = false
-            
-            // MARK: Registration Note Table View Cell
-            tableView.register(NewMoviePosterTableViewCell.nib(),
-                               forCellReuseIdentifier: NewMoviePosterTableViewCell.identifier)
-            tableView.register(TrendingTableViewHeader.self,
-                               forHeaderFooterViewReuseIdentifier: TrendingTableViewHeader.identifier)
-            tableView.register(MovieSectionTableViewCell.nib(), forCellReuseIdentifier: MovieSectionTableViewCell.identifier)
-        }
-    }
+    // MARK: - IBOutlets
+    @IBOutlet private var tableView: UITableView!
     
     // MARK: - Model
     private var model = [TrendingViewModel]()
     
-    // MARK: - View Life Cycle
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         fetchData()
+        setupTableViewCell()
+    }
+
+    private func setupTableViewCell() {
+        // MARK: Configure Table View
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        tableView.allowsSelection = false
+        
+        // MARK: Registration Note Table View Cell
+        tableView.register(NewMoviePosterTableViewCell.nib(),
+                           forCellReuseIdentifier: NewMoviePosterTableViewCell.identifier)
+        tableView.register(TrendingTableViewHeader.self,
+                           forHeaderFooterViewReuseIdentifier: TrendingTableViewHeader.identifier)
+        tableView.register(MovieSectionTableViewCell.nib(), forCellReuseIdentifier: MovieSectionTableViewCell.identifier)
     }
     
     // MARK: - Fetch Data
     private func fetchData() {
         let group = DispatchGroup()
         
-        var trending: MediaObject?
-        var recommendedMovie: MediaObject?
-        var nowPlaying: MediaObject?
+        var trending: MovieObject?
+        var recommendedMovie: MovieObject?
+        var nowPlaying: MovieObject?
         
         // MARK: Get Trending Movies
         group.enter()
@@ -98,7 +99,7 @@ class TrendingViewController: UIViewController {
         }
     }
     
-    private func configureModel(trending: [Media], recommended: [Media], nowPlaying: [Media]) {
+    private func configureModel(trending: [Movie], recommended: [Movie], nowPlaying: [Movie]) {
         // MARK: Create Now Trending Section
         model.append(TrendingViewModel(section: "Now Trending", movie: trending))
         
@@ -109,6 +110,15 @@ class TrendingViewController: UIViewController {
         model.append(TrendingViewModel(section: "Now Playing", movie: nowPlaying))
         
         tableView.reloadData()
+    }
+    
+    /// Embeds ViewController into NavigationController and present last one
+    private func presentNavVC(vc: UIViewController, title: String) {
+        vc.navigationItem.largeTitleDisplayMode = .always
+        vc.title = title
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.modalPresentationStyle = .formSheet
+        present(navVC, animated: true, completion: nil)
     }
 }
 
@@ -126,6 +136,7 @@ extension TrendingViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: MovieSectionTableViewCell.identifier) as! MovieSectionTableViewCell
             cell.configurate(model: model[indexPath.section].movie.randomElement()!)
+            cell.delegate = self
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: NewMoviePosterTableViewCell.identifier, for: indexPath) as! NewMoviePosterTableViewCell
@@ -156,13 +167,13 @@ extension TrendingViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - Set New Movie Poster Cell Delegate
 extension TrendingViewController: NewMoviePosterTableViewCellDelegate {
-    func didTapPoster(cellView: NewMoviePosterTableViewCell, model: Media) {
-        let vc = UIViewController()
-        vc.navigationItem.largeTitleDisplayMode = .always
-        vc.view.backgroundColor = .systemGray
-        vc.title = model.title
-        let navVC = UINavigationController(rootViewController: vc)
-        navVC.modalPresentationStyle = .formSheet
-        present(navVC, animated: true, completion: nil)
+    func didTapPoster(cellView: NewMoviePosterTableViewCell, model: Movie) {
+        presentNavVC(vc: MediaViewController(media: model), title: model.title)
+    }
+}
+
+extension TrendingViewController: MovieSectionTableViewCellDelegate {
+    func didTapSectionCell(model: Movie) {
+        presentNavVC(vc: MediaViewController(media: model), title: model.title)
     }
 }
