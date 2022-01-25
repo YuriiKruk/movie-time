@@ -74,12 +74,21 @@
                             <constraint firstAttribute="trailing" secondItem="oJZ-mk-qpD" secondAttribute="trailing" constant="10" id="sgk-3h-XVN"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Chc-k9-RfS">
+                        <rect key="frame" x="10" y="10" width="426" height="222"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="PwZ-in-eKH" secondAttribute="trailing" constant="10" id="2Of-8E-yf6"/>
+                    <constraint firstItem="Chc-k9-RfS" firstAttribute="height" secondItem="PwZ-in-eKH" secondAttribute="height" id="A1n-HO-g65"/>
                     <constraint firstItem="PwZ-in-eKH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ABL-Fr-eQE"/>
                     <constraint firstAttribute="bottom" secondItem="PwZ-in-eKH" secondAttribute="bottom" constant="10" id="FSM-EA-xlP"/>
                     <constraint firstItem="PwZ-in-eKH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="ICf-Tq-yPs"/>
+                    <constraint firstItem="Chc-k9-RfS" firstAttribute="width" secondItem="PwZ-in-eKH" secondAttribute="width" id="Se0-FY-oOB"/>
+                    <constraint firstItem="Chc-k9-RfS" firstAttribute="centerY" secondItem="PwZ-in-eKH" secondAttribute="centerY" id="ezs-En-27U"/>
+                    <constraint firstItem="Chc-k9-RfS" firstAttribute="centerX" secondItem="PwZ-in-eKH" secondAttribute="centerX" id="rzi-yX-2UV"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -90,6 +99,7 @@
                 <outlet property="posterImage" destination="zW5-cd-Ivc" id="hlq-Ik-ivP"/>
                 <outlet property="releaseDateLabel" destination="PhS-wu-ROR" id="cCv-Ed-h0F"/>
                 <outlet property="titleLabel" destination="8rv-EY-iye" id="ER5-pi-FG9"/>
+                <outlet property="topGestureView" destination="Chc-k9-RfS" id="gPL-xH-ky6"/>
             </connections>
             <point key="canvasLocation" x="228.98550724637684" y="153.34821428571428"/>
         </tableViewCell>
