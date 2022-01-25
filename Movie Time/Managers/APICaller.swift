@@ -134,7 +134,7 @@ final class APICaller {
     
     /// Request to get the upcoming movies.
     func getUpcomingMovies(completion: @escaping ((Result<MovieObject, Error>) -> Void)) {
-        createRequest(with: URL(string: Constants.baseAPIURL + "/movie/upcoming" + Constants.apiKey), type: .GET) { request in
+        createRequest(with: URL(string: Constants.baseAPIURL + "/movie/upcoming" + Constants.apiKey + "&language=en-US&region=US"), type: .GET) { request in
             let task = URLSession.shared.dataTask(with: request) { data, _, error in
                 guard let data = data, error == nil else {
                     completion(.failure(APIError.failedToGetData))
