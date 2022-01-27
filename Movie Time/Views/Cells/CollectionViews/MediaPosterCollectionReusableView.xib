@@ -1,17 +1,74 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="MediaPosterCollectionReusableView" customModule="Movie_Time" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="347" height="306"/>
             <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="97p-fL-zdu">
+                    <rect key="frame" x="0.0" y="0.0" width="347" height="306"/>
+                </imageView>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jpg-i7-mdl">
+                    <rect key="frame" x="0.0" y="0.0" width="347" height="306"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="7vq-Qt-YDO">
+                        <rect key="frame" x="0.0" y="0.0" width="347" height="306"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9PM-8v-ac7">
+                                <rect key="frame" x="90.5" y="20" width="166" height="266"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i7O-gd-ndB">
+                                        <rect key="frame" x="0.0" y="0.0" width="166" height="266"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="i7O-gd-ndB" secondAttribute="bottom" id="7lu-ix-BBo"/>
+                                    <constraint firstItem="i7O-gd-ndB" firstAttribute="leading" secondItem="9PM-8v-ac7" secondAttribute="leading" id="Ko3-aB-fTf"/>
+                                    <constraint firstAttribute="width" secondItem="9PM-8v-ac7" secondAttribute="height" multiplier="1:1.6" id="bGH-d1-B34"/>
+                                    <constraint firstItem="i7O-gd-ndB" firstAttribute="top" secondItem="9PM-8v-ac7" secondAttribute="top" id="dib-Uf-QXe"/>
+                                    <constraint firstAttribute="trailing" secondItem="i7O-gd-ndB" secondAttribute="trailing" id="jLG-7Y-9NV"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="9PM-8v-ac7" firstAttribute="top" secondItem="7vq-Qt-YDO" secondAttribute="top" constant="20" id="95m-VC-pfB"/>
+                            <constraint firstAttribute="bottom" secondItem="9PM-8v-ac7" secondAttribute="bottom" constant="20" id="Ej3-6L-NnT"/>
+                        </constraints>
+                    </view>
+                    <constraints>
+                        <constraint firstItem="9PM-8v-ac7" firstAttribute="centerX" secondItem="7vq-Qt-YDO" secondAttribute="centerX" id="1X3-td-npE"/>
+                        <constraint firstItem="9PM-8v-ac7" firstAttribute="centerY" secondItem="7vq-Qt-YDO" secondAttribute="centerY" id="caa-uM-3Fl"/>
+                    </constraints>
+                    <blurEffect style="regular"/>
+                </visualEffectView>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="97p-fL-zdu" secondAttribute="bottom" id="02c-lM-Lu1"/>
+                <constraint firstAttribute="trailing" secondItem="97p-fL-zdu" secondAttribute="trailing" id="3CV-0l-u0y"/>
+                <constraint firstItem="Jpg-i7-mdl" firstAttribute="width" secondItem="97p-fL-zdu" secondAttribute="width" id="C5e-1P-21Z"/>
+                <constraint firstItem="Jpg-i7-mdl" firstAttribute="height" secondItem="97p-fL-zdu" secondAttribute="height" id="NLW-kC-DXn"/>
+                <constraint firstItem="Jpg-i7-mdl" firstAttribute="centerX" secondItem="97p-fL-zdu" secondAttribute="centerX" id="bmS-s5-xlY"/>
+                <constraint firstItem="Jpg-i7-mdl" firstAttribute="centerY" secondItem="97p-fL-zdu" secondAttribute="centerY" id="cnx-U6-E3L"/>
+                <constraint firstItem="97p-fL-zdu" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="dfn-qW-Hlb"/>
+                <constraint firstItem="97p-fL-zdu" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="jgl-uh-63Z"/>
+            </constraints>
+            <connections>
+                <outlet property="backGroundImage" destination="97p-fL-zdu" id="bhf-RM-w6K"/>
+                <outlet property="blurEffectView" destination="Jpg-i7-mdl" id="NF5-iB-Bsb"/>
+                <outlet property="containerView" destination="9PM-8v-ac7" id="Fy1-Co-zSP"/>
+                <outlet property="posterImage" destination="i7O-gd-ndB" id="PY7-pU-6RW"/>
+            </connections>
+            <point key="canvasLocation" x="157.24637681159422" y="173.4375"/>
         </collectionReusableView>
     </objects>
 </document>
