@@ -19,16 +19,21 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gqz-jx-cYJ">
                         <rect key="frame" x="0.0" y="0.0" width="370" height="458"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="En6-iP-Ief">
-                        <rect key="frame" x="12" y="12" width="346" height="26.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="En6-iP-Ief">
+                        <rect key="frame" x="12" y="12" width="346" height="21.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VM6-Rr-eA7">
-                        <rect key="frame" x="12" y="50.5" width="370" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpa-NG-vFh">
+                        <rect key="frame" x="12" y="426" width="40" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="aAt-an-ybK"/>
+                            <constraint firstAttribute="width" constant="40" id="d9h-a4-dz4"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title="rating"/>
+                    </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
@@ -37,22 +42,20 @@
             <constraints>
                 <constraint firstItem="En6-iP-Ief" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="12" id="0oH-Ur-Z9C"/>
                 <constraint firstItem="En6-iP-Ief" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="4wd-cB-s3M"/>
-                <constraint firstItem="VM6-Rr-eA7" firstAttribute="height" relation="lessThanOrEqual" secondItem="gqz-jx-cYJ" secondAttribute="height" multiplier="0.04" id="PQH-8Y-s62"/>
+                <constraint firstItem="hpa-NG-vFh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="E9U-wD-SXP"/>
+                <constraint firstAttribute="bottom" secondItem="hpa-NG-vFh" secondAttribute="bottom" constant="12" id="OOz-9C-fnW"/>
                 <constraint firstAttribute="trailing" secondItem="gqz-jx-cYJ" secondAttribute="trailing" id="Ylf-QT-zww"/>
-                <constraint firstItem="VM6-Rr-eA7" firstAttribute="leading" secondItem="En6-iP-Ief" secondAttribute="leading" id="ZLN-sb-shT"/>
                 <constraint firstAttribute="trailing" secondItem="En6-iP-Ief" secondAttribute="trailing" constant="12" id="ajW-ce-ue4"/>
                 <constraint firstAttribute="bottom" secondItem="gqz-jx-cYJ" secondAttribute="bottom" id="hAr-qo-7lb"/>
-                <constraint firstItem="VM6-Rr-eA7" firstAttribute="top" secondItem="En6-iP-Ief" secondAttribute="bottom" constant="12" id="hsY-SA-htm"/>
-                <constraint firstItem="VM6-Rr-eA7" firstAttribute="width" secondItem="En6-iP-Ief" secondAttribute="width" multiplier="1.06936" id="ohC-TT-fF2"/>
                 <constraint firstItem="gqz-jx-cYJ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="t0y-Rc-d6y"/>
-                <constraint firstItem="En6-iP-Ief" firstAttribute="height" relation="lessThanOrEqual" secondItem="gqz-jx-cYJ" secondAttribute="height" multiplier="0.1" id="vCq-ry-jjf"/>
+                <constraint firstItem="En6-iP-Ief" firstAttribute="height" relation="lessThanOrEqual" secondItem="gqz-jx-cYJ" secondAttribute="height" multiplier="0.2" id="vCq-ry-jjf"/>
                 <constraint firstItem="gqz-jx-cYJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="yzv-Rg-g63"/>
             </constraints>
             <size key="customSize" width="370" height="458"/>
             <connections>
-                <outlet property="nameLabel" destination="En6-iP-Ief" id="1sV-Bm-eFO"/>
                 <outlet property="posterImage" destination="gqz-jx-cYJ" id="TAB-kb-hYe"/>
-                <outlet property="ratingLabel" destination="VM6-Rr-eA7" id="n7f-G1-N12"/>
+                <outlet property="ratingButton" destination="hpa-NG-vFh" id="1xY-MY-i4s"/>
+                <outlet property="titleLabel" destination="En6-iP-Ief" id="1sV-Bm-eFO"/>
             </connections>
             <point key="canvasLocation" x="369.56521739130437" y="224.33035714285714"/>
         </collectionViewCell>
