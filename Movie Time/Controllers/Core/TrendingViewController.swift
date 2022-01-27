@@ -146,9 +146,8 @@ class TrendingViewController: UIViewController {
     }
     
     /// Embeds ViewController into NavigationController and present last one
-    private func presentNavVC(vc: UIViewController, title: String) {
+    private func presentNavVC(vc: UIViewController) {
         vc.navigationItem.largeTitleDisplayMode = .always
-        vc.title = title
         let navVC = UINavigationController(rootViewController: vc)
         navVC.modalPresentationStyle = .formSheet
         present(navVC, animated: true, completion: nil)
@@ -227,7 +226,7 @@ extension TrendingViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - Set New Movie Poster Cell Delegate
 extension TrendingViewController: NewMoviePosterTableViewCellDelegate {
     func didTapPoster(cellView: NewMoviePosterTableViewCell, model: Movie) {
-        presentNavVC(vc: MovieViewController(media: model), title: model.title)
+        presentNavVC(vc: MovieViewController(media: model))
     }
 }
 
@@ -236,7 +235,7 @@ extension TrendingViewController: MediaSectionTableViewCellDelegate {
         switch mediaType {
         case .movie:
             guard let model = model as? Movie else { return }
-            presentNavVC(vc: MovieViewController(media: model), title: model.title)
+            presentNavVC(vc: MovieViewController(media: model))
         case .tv:
             return
         }
