@@ -18,25 +18,28 @@ class TrendingViewController: UIViewController {
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         fetchData()
         setupTableViewCell()
     }
-
+    
+    // MARK: - Setup Table View
     private func setupTableViewCell() {
         // MARK: Configure Table View
         tableView.delegate = self
         tableView.dataSource = self
+        
         tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
         tableView.allowsSelection = false
+        tableView.showsVerticalScrollIndicator = false
+        
+        tableView.sectionFooterHeight = 0
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNonzeroMagnitude))
+        tableView.tableFooterView = footerView
         
         // MARK: Registration Note Table View Cell
-        tableView.register(NewMoviePosterTableViewCell.nib(),
-                           forCellReuseIdentifier: NewMoviePosterTableViewCell.identifier)
-        tableView.register(TrendingTableViewHeader.self,
-                           forHeaderFooterViewReuseIdentifier: TrendingTableViewHeader.identifier)
-        tableView.register(MovieSectionTableViewCell.nib(), forCellReuseIdentifier: MovieSectionTableViewCell.identifier)
+        tableView.register(NewMoviePosterTableViewCell.nib(), forCellReuseIdentifier: NewMoviePosterTableViewCell.identifier)
+        tableView.register(TrendingTableViewHeader.self, forHeaderFooterViewReuseIdentifier: TrendingTableViewHeader.identifier)
+        tableView.register(MediaSectionTableViewCell.nib(), forCellReuseIdentifier: MediaSectionTableViewCell.identifier)
     }
     
     // MARK: - Fetch Data
@@ -109,7 +112,7 @@ class TrendingViewController: UIViewController {
             guard
                 let trending = trendingMovies,
                 let recommended = recommendedMovie,
-                let nowPlaying = popularMovies,
+                let popular = popularMovies,
                 let upcoming = upcomingMovies
             else {
                 return
@@ -119,23 +122,25 @@ class TrendingViewController: UIViewController {
                 trending: trending.results,
                 recommended: recommended.results,
                 upcoming: upcoming.results,
-                nowPlaying: nowPlaying.results
+                popular: popular.results
             )
         }
     }
     
-    private func configureModel(trending: [Movie], recommended: [Movie], upcoming: [Movie], nowPlaying: [Movie]) {
-        // MARK: Create Now Trending Section
-        model.append(TrendingViewModel(section: "Now Trending", movie: trending))
+    // MARK: - Configure Model
+    private func configureModel(trending: [Movie], recommended: [Movie], upcoming: [Movie], popular: [Movie]) {
+        // Create Now Trending Section
+        model.append(TrendingViewModel(section: .nowTrending, movie: trending))
         
-        // MARK: Create Latest Section
-        model.append(TrendingViewModel(section: "Recommended", movie: recommended))
+        // Create Latest Section
+        model.append(TrendingViewModel(section: .recommended, movie: recommended))
         
-        // MARK: Create Upcomming Section
-        model.append(TrendingViewModel(section: "Upcoming", movie: upcoming))
+        // Create Popular Section
+        model.append(TrendingViewModel(section: .popular, movie: popular))
         
-        // MARK: Create Now Playing Section
-        model.append(TrendingViewModel(section: "Popular", movie: nowPlaying))
+        // Create Upcomming Section
+        model.append(TrendingViewModel(section: .upcoming, movie: upcoming))
+
         
         tableView.reloadData()
     }
@@ -157,39 +162,65 @@ extension TrendingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 3 {
+            return model[section].movie.count
+        }
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: MovieSectionTableViewCell.identifier) as! MovieSectionTableViewCell
+        switch indexPath.section {
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: MediaSectionTableViewCell.identifier) as! MediaSectionTableViewCell
             cell.configurate(model: model[indexPath.section].movie.randomElement()!)
             cell.delegate = self
             return cell
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: MediaSectionTableViewCell.identifier) as! MediaSectionTableViewCell
+            cell.configurate(model: model[indexPath.section].movie[indexPath.row])
+            cell.delegate = self
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: NewMoviePosterTableViewCell.identifier, for: indexPath) as! NewMoviePosterTableViewCell
+            cell.configure(model: model[indexPath.section].movie)
+            cell.delegate = self
+            return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: NewMoviePosterTableViewCell.identifier, for: indexPath) as! NewMoviePosterTableViewCell
-        cell.configure(model: model[indexPath.section].movie)
-        cell.delegate = self
-        return cell
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 1 {
+        switch indexPath.section {
+        case 1,3:
             return view.frame.height / 4
+        default:
+            return view.frame.height / 3
         }
-        return view.frame.height / 3
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TrendingTableViewHeader.identifier) as? TrendingTableViewHeader else {
             return UIView()
         }
-        view.configure(title: model[section].section)
+        view.configure(title: model[section].section.rawValue)
         return view
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.section == 3 {
+            let transform = CATransform3DTranslate(CATransform3DIdentity, 0, Theme.padding, 0)
+            cell.layer.transform = transform
+            cell.alpha = 0
+            
+            UIView.animate(withDuration: 0.5) {
+                cell.layer.transform = CATransform3DIdentity
+                cell.alpha = 1
+            }
+        }
     }
 }
 
@@ -200,8 +231,14 @@ extension TrendingViewController: NewMoviePosterTableViewCellDelegate {
     }
 }
 
-extension TrendingViewController: MovieSectionTableViewCellDelegate {
-    func didTapSectionCell(model: Movie) {
-        presentNavVC(vc: MovieViewController(media: model), title: model.title)
+extension TrendingViewController: MediaSectionTableViewCellDelegate {
+    func didTapSectionCell(cellView: MediaSectionTableViewCell, mediaType: MediaType, model: Any) {
+        switch mediaType {
+        case .movie:
+            guard let model = model as? Movie else { return }
+            presentNavVC(vc: MovieViewController(media: model), title: model.title)
+        case .tv:
+            return
+        }
     }
 }
