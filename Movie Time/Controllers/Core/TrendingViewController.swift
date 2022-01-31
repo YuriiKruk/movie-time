@@ -15,10 +15,13 @@ class TrendingViewController: UIViewController {
     // MARK: - Model
     private var model = [TrendingViewModel]()
     
+    private var shouldPreventDisplayCellAnimation: Bool = true
+    
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
+        tableView.prefetchDataSource = self
         setupTableViewCell()
     }
     
@@ -127,6 +130,41 @@ class TrendingViewController: UIViewController {
         }
     }
     
+    private func prefetchData(section: Int) {
+        guard !model.isEmpty else { return }
+        
+        if model[section].section == .upcoming {
+            model[section].isPaginating = true
+            model[section].page += 1
+            
+            APICaller.shared.getUpcomingMovies(page: model[section].page) { [weak self] result in
+                switch result {
+                case .success(let movies):
+                    if movies.results.count == 0 {
+                        self?.model[section].isPaginating = true
+                        self?.shouldPreventDisplayCellAnimation = true
+                        return
+                    }
+                    self?.model[section].movie.append(contentsOf: movies.results)
+                    self?.model[section].isPaginating = false
+                    
+                    DispatchQueue.main.async {
+                        self?.shouldPreventDisplayCellAnimation = false
+                        self?.tableView.reloadData()
+                        
+                        DispatchQueue.main.async {
+                            self?.shouldPreventDisplayCellAnimation = true
+                        }
+                    }
+                    
+                case .failure(let error):
+                    self?.model[3].isPaginating = true
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
     // MARK: - Configure Model
     private func configureModel(trending: [Movie], recommended: [Movie], upcoming: [Movie], popular: [Movie]) {
         // Create Now Trending Section
@@ -141,7 +179,7 @@ class TrendingViewController: UIViewController {
         // Create Upcomming Section
         model.append(TrendingViewModel(section: .upcoming, movie: upcoming))
 
-        
+        HapticManager.shared.vibrateForImpactFeedback()
         tableView.reloadData()
     }
     
@@ -210,6 +248,8 @@ extension TrendingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard shouldPreventDisplayCellAnimation else { return }
+        
         if indexPath.section == 3 {
             let transform = CATransform3DTranslate(CATransform3DIdentity, 0, Theme.padding, 0)
             cell.layer.transform = transform
@@ -223,9 +263,21 @@ extension TrendingViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - Prefetching Data
+extension TrendingViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        for index in indexPaths {
+            if index.row >= model[index.section].movie.count - 3 && !model[index.section].isPaginating {
+                prefetchData(section: index.section)
+            }
+        }
+    }
+}
+
 // MARK: - Set New Movie Poster Cell Delegate
 extension TrendingViewController: NewMoviePosterTableViewCellDelegate {
     func didTapPoster(cellView: NewMoviePosterTableViewCell, model: Movie) {
+        HapticManager.shared.vibrateForSelection()
         presentNavVC(vc: MovieViewController(media: model))
     }
 }
@@ -235,6 +287,7 @@ extension TrendingViewController: MediaSectionTableViewCellDelegate {
         switch mediaType {
         case .movie:
             guard let model = model as? Movie else { return }
+            HapticManager.shared.vibrateForSelection()
             presentNavVC(vc: MovieViewController(media: model))
         case .tv:
             return
