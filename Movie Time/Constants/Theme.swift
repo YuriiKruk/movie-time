@@ -10,7 +10,7 @@ import UIKit
 
 enum Theme {
     static let padding: CGFloat = 10
-    static let imagePlaceholder = UIImage(systemName: "clock.arrow.2.circlepath")
+    static let imagePlaceholder = UIImage(systemName: "film")
     static let whitePrimaryColor = UIColor(named: "whitePrimaryColor")!
     static let primaryLabelColor = UIColor(named: "primaryLabelColor")!
     static let secondaryLabelColor = UIColor(named: "secondaryLabelColor")!
