@@ -12,16 +12,15 @@ class TrendingViewController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet private var tableView: UITableView!
     
+    private var shouldPreventDisplayCellAnimation: Bool = true
+    
     // MARK: - Model
     private var model = [TrendingViewModel]()
-    
-    private var shouldPreventDisplayCellAnimation: Bool = true
     
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
-        tableView.prefetchDataSource = self
         setupTableViewCell()
     }
     
@@ -30,6 +29,7 @@ class TrendingViewController: UIViewController {
         // MARK: Configure Table View
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.prefetchDataSource = self
         
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
@@ -130,6 +130,7 @@ class TrendingViewController: UIViewController {
         }
     }
     
+    // MARK: - Prefetching data
     private func prefetchData(section: Int) {
         guard !model.isEmpty else { return }
         
@@ -263,7 +264,7 @@ extension TrendingViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK: - Prefetching Data
+// MARK: - Prefetching Data Delegate
 extension TrendingViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         for index in indexPaths {
@@ -282,6 +283,7 @@ extension TrendingViewController: NewMoviePosterTableViewCellDelegate {
     }
 }
 
+// MARK: - Set New Media Section TableView Cell Delegate
 extension TrendingViewController: MediaSectionTableViewCellDelegate {
     func didTapSectionCell(cellView: MediaSectionTableViewCell, mediaType: MediaType, model: Any) {
         switch mediaType {
