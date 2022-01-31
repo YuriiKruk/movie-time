@@ -9,7 +9,9 @@ import Foundation
 
 struct TrendingViewModel {
     let section: TrendingSectionViewModel
-    let movie: [Movie]
+    var movie: [Movie]
+    var page: Int = 1
+    var isPaginating: Bool = false
 }
 
 enum TrendingSectionViewModel: String {
