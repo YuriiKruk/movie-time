@@ -23,6 +23,7 @@ class MediaPosterCollectionReusableView: UICollectionReusableView {
     // MARK: - View LifeCycle
     override func awakeFromNib() {
         super.awakeFromNib()
+        backgroundColor = .clear
         
         setupIBOutlets()
     }
@@ -33,7 +34,7 @@ class MediaPosterCollectionReusableView: UICollectionReusableView {
             let url = URL(string: Constants.baseImageURL + posterPath)
             let image = UIImageView()
             image.sd_setImage(with: url) { [weak self] image, error, _, _ in
-                guard let image = image, error == nil else {
+                guard let image = image else {
                     self?.backGroundImage.image = Theme.imagePlaceholder
                     self?.posterImage.image = Theme.imagePlaceholder
                     return
@@ -41,6 +42,11 @@ class MediaPosterCollectionReusableView: UICollectionReusableView {
                 self?.backGroundImage.image = image
                 self?.posterImage.image = image
             }
+
+        } else {
+            backGroundImage.image = Theme.imagePlaceholder
+            posterImage.image = Theme.imagePlaceholder
+            posterImage.contentMode = .scaleAspectFit
         }
     }
     
@@ -55,6 +61,7 @@ class MediaPosterCollectionReusableView: UICollectionReusableView {
         
         containerView.addShadow(offset: CGSize(width: 0, height: 5), color: .black, radius: 10, opacity: 0.5)
         
+        posterImage.contentMode = .scaleAspectFill
         posterImage.layer.cornerRadius = 10
         posterImage.clipsToBounds = true
     }
