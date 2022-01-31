@@ -34,6 +34,7 @@ class MediaSectionTableViewCell: UITableViewCell, NibSetapable {
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = .clear
+        contentView.addShadow(offset: CGSize(width: 0, height: 3), color: .black, radius: 10, opacity: 0.3)
         
         setupIBOutlets()
         setupBackgroundBlurEffect()
@@ -47,6 +48,7 @@ class MediaSectionTableViewCell: UITableViewCell, NibSetapable {
         super.prepareForReuse()
         
         posterImage.image = nil
+        posterImage.contentMode = .scaleAspectFill
         backgroundImage.image = nil
         titleLabel.text = nil
         overviewLabel.text = nil
@@ -91,6 +93,7 @@ class MediaSectionTableViewCell: UITableViewCell, NibSetapable {
         generalView.layer.cornerRadius = 20
         generalView.layer.masksToBounds = true
                 
+        posterImage.contentMode = .scaleAspectFill
         posterImage.layer.cornerRadius = 10
         posterImage.layer.masksToBounds = true
     }
@@ -115,6 +118,7 @@ class MediaSectionTableViewCell: UITableViewCell, NibSetapable {
                 let imageURL = URL(string: Constants.baseImageURL + posterPath)
                 posterImage.sd_setImage(with: imageURL, completed: nil)
             } else {
+                posterImage.contentMode = .scaleAspectFit
                 posterImage.image = Theme.imagePlaceholder
             }
             
@@ -122,7 +126,7 @@ class MediaSectionTableViewCell: UITableViewCell, NibSetapable {
             titleLabel.text = model.title
             
             // Seting movie overview label
-            overviewLabel.text = model.overview
+            overviewLabel.text = !model.overview.isEmpty ? model.overview : "There no overview yet 🙄"
             
             // Seting movie adult image
             if let isAdult = model.adult {
