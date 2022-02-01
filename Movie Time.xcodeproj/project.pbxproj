@@ -18,11 +18,15 @@
 		DE30A5E827A234F700BAFB87 /* MediaPosterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE30A5E627A234F700BAFB87 /* MediaPosterCollectionReusableView.swift */; };
 		DE30A5E927A234F700BAFB87 /* MediaPosterCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE30A5E727A234F700BAFB87 /* MediaPosterCollectionReusableView.xib */; };
 		DE30A5ED27A24C3200BAFB87 /* UIView+addShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE30A5EC27A24C3200BAFB87 /* UIView+addShadow.swift */; };
+		DE30A5F127A38E3600BAFB87 /* StretchyHeaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE30A5F027A38E3600BAFB87 /* StretchyHeaderLayout.swift */; };
 		DE38D5FA279DA6100006A567 /* NibSetapable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE38D5F9279DA6100006A567 /* NibSetapable.swift */; };
 		DE38D5FC279E009E0006A567 /* TVShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE38D5FB279E009E0006A567 /* TVShow.swift */; };
 		DE38D5FE279E00AF0006A567 /* TVShowObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE38D5FD279E00AF0006A567 /* TVShowObject.swift */; };
 		DE38D600279E20100006A567 /* PersonObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE38D5FF279E20100006A567 /* PersonObject.swift */; };
 		DE38D602279E3BE80006A567 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE38D601279E3BE80006A567 /* SearchResponse.swift */; };
+		DE5A92B527A83E7300409C41 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5A92B427A83E7300409C41 /* HapticManager.swift */; };
+		DE5A92B827A8A4C800409C41 /* MediaHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5A92B627A8A4C800409C41 /* MediaHeaderCollectionViewCell.swift */; };
+		DE5A92B927A8A4C800409C41 /* MediaHeaderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE5A92B727A8A4C800409C41 /* MediaHeaderCollectionViewCell.xib */; };
 		DE94BB622793234E006F03B4 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE94BB612793234E006F03B4 /* TabBarViewController.swift */; };
 		DE94BB6727933988006F03B4 /* TrendingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE94BB6627933988006F03B4 /* TrendingViewController.xib */; };
 		DE94BB6A27938DC6006F03B4 /* NewMoviePosterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE94BB6827938DC6006F03B4 /* NewMoviePosterTableViewCell.swift */; };
@@ -64,11 +68,15 @@
 		DE30A5E627A234F700BAFB87 /* MediaPosterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPosterCollectionReusableView.swift; sourceTree = "<group>"; };
 		DE30A5E727A234F700BAFB87 /* MediaPosterCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaPosterCollectionReusableView.xib; sourceTree = "<group>"; };
 		DE30A5EC27A24C3200BAFB87 /* UIView+addShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addShadow.swift"; sourceTree = "<group>"; };
+		DE30A5F027A38E3600BAFB87 /* StretchyHeaderLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyHeaderLayout.swift; sourceTree = "<group>"; };
 		DE38D5F9279DA6100006A567 /* NibSetapable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibSetapable.swift; sourceTree = "<group>"; };
 		DE38D5FB279E009E0006A567 /* TVShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShow.swift; sourceTree = "<group>"; };
 		DE38D5FD279E00AF0006A567 /* TVShowObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowObject.swift; sourceTree = "<group>"; };
 		DE38D5FF279E20100006A567 /* PersonObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonObject.swift; sourceTree = "<group>"; };
 		DE38D601279E3BE80006A567 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		DE5A92B427A83E7300409C41 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		DE5A92B627A8A4C800409C41 /* MediaHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
+		DE5A92B727A8A4C800409C41 /* MediaHeaderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaHeaderCollectionViewCell.xib; sourceTree = "<group>"; };
 		DE94BB612793234E006F03B4 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		DE94BB6627933988006F03B4 /* TrendingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrendingViewController.xib; sourceTree = "<group>"; };
 		DE94BB6827938DC6006F03B4 /* NewMoviePosterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMoviePosterTableViewCell.swift; sourceTree = "<group>"; };
@@ -195,6 +203,7 @@
 		DE30A5EA27A2351600BAFB87 /* CollectionViews */ = {
 			isa = PBXGroup;
 			children = (
+				DE30A5F027A38E3600BAFB87 /* StretchyHeaderLayout.swift */,
 				DE30A5E627A234F700BAFB87 /* MediaPosterCollectionReusableView.swift */,
 				DE30A5E727A234F700BAFB87 /* MediaPosterCollectionReusableView.xib */,
 			);
@@ -288,6 +297,8 @@
 			children = (
 				DE94BB7327939346006F03B4 /* MoviePosterCollectionViewCell.swift */,
 				DE94BB7427939346006F03B4 /* MoviePosterCollectionViewCell.xib */,
+				DE5A92B627A8A4C800409C41 /* MediaHeaderCollectionViewCell.swift */,
+				DE5A92B727A8A4C800409C41 /* MediaHeaderCollectionViewCell.xib */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -296,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				DE94BB8027977987006F03B4 /* APICaller.swift */,
+				DE5A92B427A83E7300409C41 /* HapticManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -437,6 +449,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE5A92B927A8A4C800409C41 /* MediaHeaderCollectionViewCell.xib in Resources */,
 				DE94BB8E2799ABFF006F03B4 /* MovieViewController.xib in Resources */,
 				DE94BB7627939346006F03B4 /* MoviePosterCollectionViewCell.xib in Resources */,
 				DEAE07DF27615488004F44C4 /* LaunchScreen.storyboard in Resources */,
@@ -516,6 +529,8 @@
 				DE30A5E827A234F700BAFB87 /* MediaPosterCollectionReusableView.swift in Sources */,
 				DE30A5CB279F6D5B00BAFB87 /* SearchResult.swift in Sources */,
 				DEAE07EE27615DD3004F44C4 /* SearchViewController.swift in Sources */,
+				DE30A5F127A38E3600BAFB87 /* StretchyHeaderLayout.swift in Sources */,
+				DE5A92B527A83E7300409C41 /* HapticManager.swift in Sources */,
 				DE94BB7527939346006F03B4 /* MoviePosterCollectionViewCell.swift in Sources */,
 				DE30A5ED27A24C3200BAFB87 /* UIView+addShadow.swift in Sources */,
 				DE94BB8D2799ABFF006F03B4 /* MovieViewController.swift in Sources */,
@@ -524,6 +539,7 @@
 				DEAE07E927615D85004F44C4 /* TrendingViewController.swift in Sources */,
 				DE94BB79279482E2006F03B4 /* TrendingTableViewHeader.swift in Sources */,
 				DE38D5FA279DA6100006A567 /* NibSetapable.swift in Sources */,
+				DE5A92B827A8A4C800409C41 /* MediaHeaderCollectionViewCell.swift in Sources */,
 				DE94BB622793234E006F03B4 /* TabBarViewController.swift in Sources */,
 				DE38D602279E3BE80006A567 /* SearchResponse.swift in Sources */,
 				DEAE07D327615483004F44C4 /* AppDelegate.swift in Sources */,
