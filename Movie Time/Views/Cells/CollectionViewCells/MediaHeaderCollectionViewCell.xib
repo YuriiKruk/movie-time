@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MediaHeaderCollectionViewCell" id="gTV-IL-0wX" customClass="MediaHeaderCollectionViewCell" customModule="Movie_Time" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="503" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="503" height="100"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="es2-5J-WMX">
+                        <rect key="frame" x="10" y="10" width="483" height="30"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
+                        <nil key="textColor"/>
+                        <color key="highlightedColor" name="primaryLabelColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9UW-Gz-9CI">
+                        <rect key="frame" x="10" y="50" width="30.5" height="15.5"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <color key="highlightedColor" name="secondColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="es2-5J-WMX" secondAttribute="trailing" constant="10" id="5ih-Bf-nrv"/>
+                <constraint firstItem="9UW-Gz-9CI" firstAttribute="leading" secondItem="es2-5J-WMX" secondAttribute="leading" id="J1a-dm-kuC"/>
+                <constraint firstItem="es2-5J-WMX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="i50-eN-iMY"/>
+                <constraint firstItem="9UW-Gz-9CI" firstAttribute="top" secondItem="es2-5J-WMX" secondAttribute="bottom" constant="10" id="rjs-8g-6fp"/>
+                <constraint firstItem="es2-5J-WMX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="yFr-4U-ol4"/>
+            </constraints>
+            <size key="customSize" width="503" height="100"/>
+            <connections>
+                <outlet property="releaseDateLabel" destination="9UW-Gz-9CI" id="lOI-Vb-lqL"/>
+                <outlet property="titleLabel" destination="es2-5J-WMX" id="vhx-zb-0Ml"/>
+            </connections>
+            <point key="canvasLocation" x="465.94202898550731" y="104.46428571428571"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <namedColor name="primaryLabelColor">
+            <color red="0.096000000834465027" green="0.097000002861022949" blue="0.097000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondColor">
+            <color white="1" alpha="0.69999998807907104" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+    </resources>
+</document>
