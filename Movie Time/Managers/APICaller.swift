@@ -317,8 +317,9 @@ final class APICaller {
     
     // MARK: - Search
     /// Search multiple models in a single request. Multi search currently supports searching for movies, tv shows and people in a single request.
-    func getSearch(with query: String, completion: @escaping ((Result<[SearchResult], Error>) -> Void)) {
-        let url = Constants.baseAPIURL + "/search/multi" + Constants.apiKey + "&language=en-US&query=" + query + "&include_adult=false"
+    func getSearch(query: String, completion: @escaping ((Result<[SearchResult], Error>) -> Void)) {
+        let urlQuery = query.replacingOccurrences(of: " ", with: "%20")
+        let url = Constants.baseAPIURL + "/search/multi" + Constants.apiKey + "&language=en-US&query=" + urlQuery + "&include_adult=false"
         createRequest(
             with: URL(string: url),
             type: .GET
